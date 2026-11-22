@@ -19,3 +19,10 @@ body>.shortcuts,#ask,details{margin:10px 14px}
 .compose input{flex:1;min-width:0}
 .compose button{background:#1e4c3e;color:white;border-color:#1e4c3e}
 details{border-top:1px solid #cddbd0;padding-top:6px}details p{margin:5px 0}summary{cursor:pointer}
+
+#workflow-choices{margin:8px 0}
+#review-steps{padding-inline-start:22px}
+#review-steps li{margin-block:7px}
+#review-steps label{font-size:inherit}
+#review-steps input{margin-inline-end:6px;accent-color:#1e4c3e}
+#accounting:has(#review-steps:empty) #review-status{display:none}
