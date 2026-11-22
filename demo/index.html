@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>دفتر · بيئة تجريبية</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#f1f4ee;color:#203b33;font:16px/1.65 system-ui,sans-serif}
+header{background:#183b31;color:#fff;padding:22px max(5vw,20px);font-size:22px;font-weight:bold}
+header span{font-size:13px;font-weight:normal;color:#cce4cb;margin-inline-start:10px}
+nav{display:flex;gap:10px;flex-wrap:wrap;padding:16px max(5vw,20px);background:#fff;border-bottom:1px solid #dce5db}
+main{padding:26px max(5vw,20px);max-width:950px}h1{margin-top:0}
+button,input,select{font:inherit;border:1px solid #adbfaf;border-radius:8px;padding:7px 12px;background:white;color:inherit}
+button{cursor:pointer}nav button[aria-current]{background:#d9ebd4}
+.card{background:#fff;border:1px solid #dce5db;border-radius:16px;padding:20px}
+form{display:grid;gap:12px;max-width:500px}label{display:grid;gap:4px}form button{justify-self:start}
+#result{margin-top:16px}table{border-collapse:collapse;width:100%}th,td{text-align:start;padding:6px 10px;border-bottom:1px solid #dde7da}
+</style>
+<header>دفتر <span>بيئة محاسبية تجريبية</span></header>
+<nav aria-label="القائمة الرئيسية">
+<button data-page="home">نظرة عامة</button><button data-page="invoices">الفواتير</button><button data-page="reports">التقارير</button>
+</nav>
+<main><h1></h1><section class="card"></section></main>
+<script src="demo.js"></script>
+</html>

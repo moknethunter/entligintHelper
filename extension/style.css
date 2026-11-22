@@ -1,0 +1,21 @@
+:root{color-scheme:light;font:15px/1.65 system-ui,sans-serif;color:#17322e;background:#f4f6f1}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;display:flex;flex-direction:column}
+header{display:flex;gap:12px;align-items:center;background:#112d28;color:#fafff9;padding:20px 16px}
+.mark{display:grid;place-items:center;background:#d9efaf;color:#183b2c;border-radius:14px;width:44px;height:44px;font-size:25px;font-weight:bold}
+h1,p{margin:0}h1{font-size:23px;line-height:1.2}header p{color:#b3c8bd}
+.screen{margin:14px;border:1px solid #d8e2d9;border-radius:14px;padding:12px;background:white;display:grid;gap:4px}
+.screen span,label{font-size:.85rem;color:#445c54;display:block}
+.screen button{justify-self:start}
+main{flex:1;min-height:185px;max-height:50vh;overflow:auto;padding:0 14px;display:flex;flex-direction:column;gap:10px}
+main p{white-space:pre-wrap;overflow-wrap:anywhere;padding:10px 12px;border-radius:12px;background:#fff}
+main .user{background:#dcebd5;align-self:flex-end}
+button,input{font:inherit;border:1px solid #bacdc0;border-radius:9px;padding:5px 9px;color:inherit;background:white}
+button{cursor:pointer}button:disabled{opacity:.55;cursor:wait}
+button:focus-visible,input:focus-visible,summary:focus-visible{outline:3px solid #779923;outline-offset:2px}
+.shortcuts,.compose{display:flex;gap:6px;flex-wrap:wrap}
+body>.shortcuts,#ask,details{margin:10px 14px}
+.compose{flex-wrap:nowrap}
+.compose input{flex:1;min-width:0}
+.compose button{background:#1e4c3e;color:white;border-color:#1e4c3e}
+details{border-top:1px solid #cddbd0;padding-top:6px}details p{margin:5px 0}summary{cursor:pointer}

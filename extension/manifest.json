@@ -1,0 +1,12 @@
+{
+  "manifest_version": 3,
+  "name": "دليل | مساعد البرامج",
+  "description": "يشرح واجهة البرنامج ويرشد المستخدم إلى عناصرها من لوحة جانبية.",
+  "version": "0.1.0",
+  "minimum_chrome_version": "116",
+  "permissions": ["activeTab", "scripting", "sidePanel"],
+  "optional_host_permissions": ["http://127.0.0.1/*"],
+  "action": {"default_title": "فتح دليل لهذه الصفحة"},
+  "background": {"service_worker": "background.js"},
+  "side_panel": {"default_path": "panel.html"}
+}

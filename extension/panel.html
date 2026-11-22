@@ -1,0 +1,14 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>دليل</title>
+<link rel="stylesheet" href="style.css">
+<header><div class="mark" aria-hidden="true">د</div><div><h1>دليل</h1><p>مساعدك داخل البرنامج</p></div></header>
+<section class="screen"><span>الشاشة الحالية</span><strong id="screen">بانتظار الإذن</strong><button id="scan" type="button">قراءة الواجهة</button></section>
+<main id="chat" role="log" aria-live="polite"><p class="assistant">افتح البرنامج بحسابك المعتاد، ثم افتح «دليل» من زر الإضافة واقرأ الواجهة. اسألني أين تبدأ أو كيف تنتقل إلى الخطوة التالية.</p></main>
+<div class="shortcuts"><button type="button">اشرح الشاشة</button><button type="button">كيف أعد فاتورة؟</button><button type="button">كيف أجهز تقريرًا؟</button></div>
+<form id="ask"><label for="question">سؤالك</label><div class="compose"><input id="question" required maxlength="500" placeholder="أين أضغط الآن؟"><button type="submit">إرسال</button></div></form>
+<details><summary>نموذج ذكاء اصطناعي محلي</summary><p>اختياري. عند تفعيله يُرسل السؤال وأسماء عناصر الواجهة إلى Ollama على جهازك. قد تتضمن الأسماء معلومات من البرنامج. استخدمه بإذن المسؤول عن البيانات.</p><form id="configure"><label for="model">اسم النموذج في Ollama</label><input id="model" placeholder="مثال: qwen2.5:3b" maxlength="100" required><div class="shortcuts"><button type="submit">تفعيل لهذه الجلسة</button><button id="disable" type="button">إيقاف</button></div><p id="mode" role="status">الإرشاد المدمج مفعّل</p></form></details>
+<script type="module" src="panel.js"></script>
+</html>
