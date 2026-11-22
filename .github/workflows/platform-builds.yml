@@ -1,0 +1,70 @@
+name: Build Windows and Android
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  windows:
+    runs-on: windows-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - name: Verify Python workspace
+        working-directory: python
+        run: python -B -m unittest discover -s tests -v
+      - name: Bundle Windows executable
+        run: |
+          python -m pip install pyinstaller==6.17.0
+          python -m PyInstaller --noconfirm --clean --onefile --name Daleel --add-data "python/web:web" --add-data "python/demo.sql:." python/windows_entry.py
+      - name: Check executable entry point
+        shell: pwsh
+        run: |
+          & dist/Daleel.exe --help
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Daleel-Windows-x64
+          path: dist/Daleel.exe
+          if-no-files-found: error
+
+  android:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - uses: android-actions/setup-android@v3
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.13'
+      - name: Verify Python workspace
+        working-directory: python
+        run: python -B -m unittest discover -s tests -v
+      - name: Build Android APK
+        run: |
+          sdkmanager "platforms;android-36" "build-tools;35.0.0"
+          export DALEEL_BUILD_PYTHON="$(command -v python)"
+          gradle -p platforms/android :app:assembleDebug
+      - name: Verify APK signature
+        run: |
+          "$ANDROID_HOME/build-tools/35.0.0/apksigner" verify             platforms/android/app/build/outputs/apk/debug/app-debug.apk
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Daleel-Android-test
+          path: platforms/android/app/build/outputs/apk/debug/app-debug.apk
+          if-no-files-found: error

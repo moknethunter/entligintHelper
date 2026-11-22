@@ -184,6 +184,7 @@ def main():
     mode.add_argument("--database", type=Path)
     parser.add_argument("--source-label")
     parser.add_argument("--approved", action="store_true")
+    parser.add_argument("--open-browser", action="store_true", help="فتح المتصفح المحلي بعد التشغيل")
     parser.add_argument("--workspace", type=Path, help="ملف مستقل لحفظ إجراءات الفريق وتفضيلات الاستخدام")
     parser.add_argument("--port", type=int, default=0, help="رقم المنفذ المحلي، 0 يختار منفذًا متاحًا")
     options = parser.parse_args()
@@ -208,7 +209,14 @@ def main():
             workspace = Workspace(workspace_path) if workspace_path else None
             with DeskServer(options.port, database.resolve(), label, options.demo, workspace) as server:
                 print("افتح رابط الجلسة في متصفح هذا الكمبيوتر:", flush=True)
-                print(f"{server.origin}/#{server.token}", flush=True)
+                url = f"{server.origin}/#{server.token}"
+                print(url, flush=True)
+                if options.open_browser:
+                    import webbrowser
+                    try:
+                        webbrowser.open(url)
+                    except (OSError, webbrowser.Error):
+                        pass
                 try:
                     server.serve_forever()
                 except KeyboardInterrupt:

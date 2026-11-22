@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">دليل</string>
+    <string name="workspace_title">دليل</string>
+    <string name="workspace_help">مساحة العمل المحاسبية ومراجعة المستندات. تُفتح الواجهة في متصفح الهاتف ويعمل محرك Python على الجهاز نفسه.</string>
+    <string name="demo">فتح بيانات التدريب</string>
+    <string name="import_data">اختيار ملف SQLite مصرح به</string>
+    <string name="loading">جارٍ تجهيز مساحة العمل…</string>
+    <string name="ready">مساحة العمل تعمل على هذا الجهاز.</string>
+    <string name="failed">تعذر التشغيل. تحقق من أن الملف نسخة SQLite متوافقة مع مخطط دليل.</string>
+    <string name="no_browser">تعذر العثور على متصفح لفتح مساحة العمل.</string>
+    <string name="import_label">مصدر SQLite مستورد</string>
+</resources>
