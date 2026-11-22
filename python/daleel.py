@@ -7,6 +7,7 @@ from contextlib import closing
 from datetime import date, datetime, timezone
 from decimal import Decimal, InvalidOperation, localcontext
 from pathlib import Path
+import re
 
 
 QUERIES = {
@@ -28,7 +29,7 @@ QUERIES = {
 
 
 def money(value):
-    if not isinstance(value, str) or len(value) > 40:
+    if not isinstance(value, str) or len(value) > 40 or not re.fullmatch(r"[+-]?[0-9]+(?:\.[0-9]+)?", value):
         raise ValueError("يجب أن يصدّر الموصل المبالغ كنص عشري دقيق.")
     try:
         number = Decimal(value)
@@ -68,7 +69,12 @@ def read_records(database, source_label, task, start=None, end=None):
     if not path.is_file():
         raise ValueError("حدد ملف SQLite صالحًا.")
     if task == "trial-balance":
-        if not start or not end or date.fromisoformat(start).isoformat() != start or date.fromisoformat(end).isoformat() != end or start > end:
+        try:
+            valid = (start and end and date.fromisoformat(start).isoformat() == start
+                     and date.fromisoformat(end).isoformat() == end and start <= end)
+        except ValueError:
+            valid = False
+        if not valid:
             raise ValueError("حدد بداية ونهاية فترة صحيحتين بصيغة YYYY-MM-DD.")
     elif start or end:
         raise ValueError("خيارات الفترة مخصصة لميزان المراجعة.")
@@ -81,6 +87,12 @@ def read_records(database, source_label, task, start=None, end=None):
         rows = [dict(row) for row in connection.execute(QUERIES[task], parameters)]
     complete = len(rows) <= 500
     rows = rows[:500]
+    if any(not isinstance(value, str) or len(value) > 512 for row in rows for value in row.values()):
+        raise ValueError("يحتوي المصدر على قيمة فارغة أو نوع بيانات لا يطابق مخطط دليل.")
+    if task == "trial-balance":
+        for row in rows:
+            money(row["debit"])
+            money(row["credit"])
     result = {
         "source": {"label": source_label, "object": "daleel_" + task.replace("-", "_"),
                    "read_at_utc": datetime.now(timezone.utc).isoformat(timespec="seconds")},

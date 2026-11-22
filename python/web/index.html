@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>دليل | مساحة العمل المحاسبية</title>
+  <link rel="stylesheet" href="/app.css">
+  <script src="/app.js" defer></script>
+</head>
+<body>
+  <aside class="sidebar">
+    <div class="brand"><span aria-hidden="true">د</span><div><strong>دليل</strong><small>مساحة العمل المحاسبية</small></div></div>
+    <nav aria-label="أقسام البيانات">
+      <button type="button" data-task="trial-balance" aria-current="page" disabled>ميزان المراجعة</button>
+      <button type="button" data-task="accounts" disabled>دليل الحسابات</button>
+      <button type="button" data-task="cashboxes" disabled>الصناديق</button>
+    </nav>
+    <div class="source">
+      <small>مصدر البيانات · قراءة فقط</small>
+      <strong id="source-label">بانتظار رابط الجلسة</strong>
+    </div>
+  </aside>
+  <main>
+    <header>
+      <h1 id="title">ميزان المراجعة</h1>
+      <p id="description">راجع إجمالي المدين والدائن والفرق لكل عملة خلال الفترة المحددة.</p>
+    </header>
+    <form id="report" aria-label="قراءة التقرير">
+      <div id="dates" class="dates">
+        <label>بداية الفترة<input type="date" id="start" required></label>
+        <label>نهاية الفترة<input type="date" id="end" required></label>
+      </div>
+      <button id="load" type="submit" disabled>قراءة المصدر</button>
+    </form>
+    <label id="learn-setting" hidden><span><input type="checkbox" id="learn"> تذكّر نوع التقارير التي أستخدمها في هذه الجلسة</span></label>
+    <p id="suggestion" class="hint" hidden></p>
+    <p id="status" role="status" aria-live="polite"></p>
+    <section id="totals" hidden aria-labelledby="totals-title">
+      <h2 id="totals-title">الإجماليات حسب العملة</h2>
+      <div id="total-cards" class="total-cards"></div>
+      <p class="hint">تساوي المدين والدائن في المصدر لا يثبت اكتمال القيود أو صحة تصنيفها.</p>
+    </section>
+    <section id="results" hidden aria-labelledby="results-title">
+      <div class="result-header">
+        <div><h2 id="results-title">السجلات</h2><p id="evidence"></p></div>
+        <button type="button" id="export">تنزيل CSV</button>
+      </div>
+      <div class="table-wrap" tabindex="0" role="region" aria-label="جدول السجلات">
+        <table aria-label="السجلات المقروءة"><thead></thead><tbody></tbody></table>
+      </div>
+    </section>
+    <section id="document-review" aria-labelledby="review-title">
+      <h2 id="review-title">مقارنة نسختين من مستند</h2>
+      <p class="hint">قارن نصّين محليين بصيغة TXT أو Markdown. تعرض النتيجة الفروق النصية وأرقام الأسطر.</p>
+      <form id="review-form">
+        <label>النسخة السابقة<input type="file" id="before-file" accept=".txt,.md,text/plain,text/markdown" required></label>
+        <label>النسخة الجديدة<input type="file" id="after-file" accept=".txt,.md,text/plain,text/markdown" required></label>
+        <button type="submit" id="review-button" disabled>مقارنة النصوص</button>
+      </form>
+      <p id="review-status" role="status"></p>
+      <div id="changes"></div>
+    </section>
+    <section id="memory" hidden aria-labelledby="memory-title">
+      <h2 id="memory-title">إجراءات الفريق</h2>
+      <p class="hint">احفظ خطوات العمل العامة ومرجع المراجعة. استخدم عنوان المستند وإصداره وتاريخه وتجنب كتابة الأرصدة أو بيانات العملاء أو نصوص العقود.</p>
+      <form id="procedure">
+        <label>المجال<select id="role"><option value="accounting">المحاسبة</option><option value="engineering">المراجعة الهندسية</option><option value="legal">المراجعة القانونية</option></select></label>
+        <button type="button" id="template">استخدام قالب مراجعة</button>
+        <label>العنوان<input id="procedure-title" maxlength="100" required></label>
+        <label>المرجع أو سياسة الفريق<input id="reference" maxlength="240" required></label>
+        <label class="steps">الخطوات بترتيب التنفيذ<textarea id="steps" rows="5" maxlength="1200" required></textarea></label>
+        <button id="save-procedure" type="submit">حفظ الإجراء</button>
+      </form>
+      <p id="memory-status" role="status"></p>
+      <ul id="procedures"></ul>
+      <button type="button" id="clear-usage">مسح تفضيل التقارير</button>
+    </section>
+  </main>
+</body>
+</html>
