@@ -7,6 +7,9 @@ from desk import main
 
 
 if __name__ == "__main__":
+    for stream in (sys.stdout, sys.stderr):
+        if stream is not None and not stream.isatty():
+            stream.reconfigure(encoding="utf-8", errors="replace")
     state = Path(os.environ.get("LOCALAPPDATA") or Path.home()) / "Daleel"
     state.mkdir(parents=True, exist_ok=True)
     if len(sys.argv) == 1:
